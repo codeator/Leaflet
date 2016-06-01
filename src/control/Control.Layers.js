@@ -269,9 +269,9 @@ L.Control.Layers = L.Control.extend({
 		}
 
 		if(!obj.overlay) {
-			var layerMaxZoom = obj.options['maxZoom'];
-			var layerMinZoom = obj.options['minZoom'];
-			var currentZoom = obj.getZoom();
+			var layerMaxZoom = obj.layer.options['maxZoom'];
+			var layerMinZoom = obj.layer.options['minZoom'];
+			var currentZoom = obj.layer.getZoom();
 			if (layerMinZoom && (currentZoom < layerMinZoom)) {
 				this._map.setZoom(layerMinZoom);
 			} else if (layerMaxZoom && (currentZoom > layerMaxZoom)) {
