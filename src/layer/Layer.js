@@ -213,18 +213,22 @@ L.Map.include({
 	},
 
 	_addZoomLimit: function (layer) {
-		if (isNaN(layer.options.maxZoom) || !isNaN(layer.options.minZoom)) {
-			this._zoomBoundLayers[L.stamp(layer)] = layer;
-			this._updateZoomLevels();
+		if (layer.options.hasZoomLimit == true) {
+			if (isNaN(layer.options.maxZoom) || !isNaN(layer.options.minZoom)) {
+				this._zoomBoundLayers[L.stamp(layer)] = layer;
+				this._updateZoomLevels();
+			}
 		}
 	},
 
 	_removeZoomLimit: function (layer) {
-		var id = L.stamp(layer);
+		if (layer.options.hasZoomLimit == true) {
+			var id = L.stamp(layer);
 
-		if (this._zoomBoundLayers[id]) {
-			delete this._zoomBoundLayers[id];
-			this._updateZoomLevels();
+			if (this._zoomBoundLayers[id]) {
+				delete this._zoomBoundLayers[id];
+				this._updateZoomLevels();
+			}
 		}
 	},
 

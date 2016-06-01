@@ -74,7 +74,11 @@ L.TileLayer = L.GridLayer.extend({
 
 		// @option crossOrigin: Boolean = false
 		// If true, all tiles will have their crossOrigin attribute set to ''. This is needed if you want to access tile pixel data.
-		crossOrigin: false
+		crossOrigin: false,
+
+		// @option hatZoomLimit: Boolean = true
+		// If true, than layers will be disabled if they have no such zoom.
+		hasZoomLimit: true
 	},
 
 	initialize: function (url, options) {

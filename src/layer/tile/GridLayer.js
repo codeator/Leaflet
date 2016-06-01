@@ -120,7 +120,11 @@ L.GridLayer = L.Layer.extend({
 
 		// @option className: String = ''
 		// A custom class name to assign to the tile layer. Empty by default.
-		className: ''
+		className: '',
+
+		// @option hatZoomLimit: Boolean = true
+		// If true, than layers will be disabled if they have no such zoom.
+		hasZoomLimit: true
 	},
 
 	initialize: function (options) {
