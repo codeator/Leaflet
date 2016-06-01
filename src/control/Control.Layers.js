@@ -53,7 +53,9 @@ L.Control.Layers = L.Control.extend({
 
 		// @option hideSingleBase: Boolean = false
 		// If `true`, the base layers in the control will be hidden when there is only one.
-		hideSingleBase: false
+		hideSingleBase: false,
+
+		checkDisabledLayers: true
 	},
 
 	initialize: function (baseLayers, overlays, options) {
@@ -350,17 +352,19 @@ L.Control.Layers = L.Control.extend({
 	},
 
 	_checkDisabledLayers: function () {
-		var inputs = this._form.getElementsByTagName('input'),
-		    input,
-		    layer,
-		    zoom = this._map.getZoom();
+		if(this.options.checkDisabledLayers) {
+			var inputs = this._form.getElementsByTagName('input'),
+				input,
+				layer,
+				zoom = this._map.getZoom();
 
-		for (var i = inputs.length - 1; i >= 0; i--) {
-			input = inputs[i];
-			layer = this._getLayer(input.layerId).layer;
-			input.disabled = (layer.options.minZoom !== undefined && zoom < layer.options.minZoom) ||
-			                 (layer.options.maxZoom !== undefined && zoom > layer.options.maxZoom);
+			for (var i = inputs.length - 1; i >= 0; i--) {
+				input = inputs[i];
+				layer = this._getLayer(input.layerId).layer;
+				input.disabled = (layer.options.minZoom !== undefined && zoom < layer.options.minZoom) ||
+					(layer.options.maxZoom !== undefined && zoom > layer.options.maxZoom);
 
+			}
 		}
 	},
 
