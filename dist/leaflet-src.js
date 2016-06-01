@@ -1,10 +1,10 @@
 /*
- Leaflet 1.0.0-rc.1+2d0d1ca, a JS library for interactive maps. http://leafletjs.com
+ Leaflet 1.0.0-rc.1+45cf951, a JS library for interactive maps. http://leafletjs.com
  (c) 2010-2015 Vladimir Agafonkin, (c) 2010-2011 CloudMade
 */
 (function (window, document, undefined) {
 var L = {
-	version: "1.0.0-rc.1+2d0d1ca"
+	version: "1.0.0-rc.1+45cf951"
 };
 
 function expose() {
@@ -11847,6 +11847,17 @@ L.Control.Layers = L.Control.extend({
 
 		if (type) {
 			this._map.fire(type, obj);
+		}
+
+		if(!obj.overlay) {
+			var layerMaxZoom = obj.options['maxZoom'];
+			var layerMinZoom = obj.options['minZoom'];
+			var currentZoom = obj.getZoom();
+			if (layerMinZoom && (currentZoom < layerMinZoom)) {
+				this._map.setZoom(layerMinZoom);
+			} else if (layerMaxZoom && (currentZoom > layerMaxZoom)) {
+				this._map.setZoom(layerMaxZoom);
+			}
 		}
 	},
 

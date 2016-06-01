@@ -267,6 +267,17 @@ L.Control.Layers = L.Control.extend({
 		if (type) {
 			this._map.fire(type, obj);
 		}
+
+		if(!obj.overlay) {
+			var layerMaxZoom = obj.options['maxZoom'];
+			var layerMinZoom = obj.options['minZoom'];
+			var currentZoom = obj.getZoom();
+			if (layerMinZoom && (currentZoom < layerMinZoom)) {
+				this._map.setZoom(layerMinZoom);
+			} else if (layerMaxZoom && (currentZoom > layerMaxZoom)) {
+				this._map.setZoom(layerMaxZoom);
+			}
+		}
 	},
 
 	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
