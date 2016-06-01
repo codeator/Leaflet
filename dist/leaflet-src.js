@@ -1,10 +1,10 @@
 /*
- Leaflet 1.0.0-rc.1+9c700e2, a JS library for interactive maps. http://leafletjs.com
+ Leaflet 1.0.0-rc.1+2d0d1ca, a JS library for interactive maps. http://leafletjs.com
  (c) 2010-2015 Vladimir Agafonkin, (c) 2010-2011 CloudMade
 */
 (function (window, document, undefined) {
 var L = {
-	version: "1.0.0-rc.1+9c700e2"
+	version: "1.0.0-rc.1+2d0d1ca"
 };
 
 function expose() {
@@ -3251,17 +3251,6 @@ L.Map = L.Evented.extend({
 
 		var type = e.type === 'keypress' && e.keyCode === 13 ? 'click' : e.type;
 
-		if (e.type === 'click') {
-			// Fire a synthetic 'preclick' event which propagates up (mainly for closing popups).
-			// @event preclick: MouseEvent
-			// Fired before mouse click on the map (sometimes useful when you
-			// want something to happen on click before any existing click
-			// handlers start running).
-			var synth = L.Util.extend({}, e);
-			synth.type = 'preclick';
-			this._handleDOMEvent(synth);
-		}
-
 		if (type === 'mousedown') {
 			// prevents outline when clicking on keyboard-focusable element
 			L.DomUtil.preventOutline(e.target || e.srcElement);
@@ -3271,6 +3260,17 @@ L.Map = L.Evented.extend({
 	},
 
 	_fireDOMEvent: function (e, type, targets) {
+
+		if (e.type === 'click') {
+			// Fire a synthetic 'preclick' event which propagates up (mainly for closing popups).
+			// @event preclick: MouseEvent
+			// Fired before mouse click on the map (sometimes useful when you
+			// want something to happen on click before any existing click
+			// handlers start running).
+			var synth = L.Util.extend({}, e);
+			synth.type = 'preclick';
+			this._fireDOMEvent(synth, synth.type, targets);
+		}
 
 		if (e._stopped) { return; }
 
@@ -5332,8 +5332,14 @@ L.Icon = L.Class.extend({
 	},
 
 	_setIconStyles: function (img, name) {
-		var options = this.options,
-		    size = L.point(options[name + 'Size']),
+		var options = this.options;
+		var sizeOption = options[name + 'Size'];
+
+		if (!L.Util.isArray(sizeOption)) {
+			sizeOption = [sizeOption, sizeOption];
+		}
+
+		var size = L.point(sizeOption),
 		    anchor = L.point(name === 'shadow' && options.shadowAnchor || options.iconAnchor ||
 		            size && size.divideBy(2, true));
 
@@ -8691,7 +8697,7 @@ L.Canvas = L.Renderer.extend({
 
 		for (var id in this._layers) {
 			layer = this._layers[id];
-			if (layer.options.interactive && layer._containsPoint(point)) {
+			if (layer.options.interactive && layer._containsPoint(point) && !this._map._draggableMoved(layer)) {
 				L.DomEvent._fakeStop(e);
 				layers.push(layer);
 			}
@@ -9604,7 +9610,6 @@ L.Draggable = L.Evented.extend({
 		var first = e.touches ? e.touches[0] : e;
 
 		this._startPoint = new L.Point(first.clientX, first.clientY);
-		this._startPos = this._newPos = L.DomUtil.getPosition(this._element);
 
 		L.DomEvent
 			.on(document, L.Draggable.MOVE[e.type], this._onMove, this)
@@ -9828,7 +9833,7 @@ L.Map.Drag = L.Handler.extend({
 				map.whenReady(this._onZoomEnd, this);
 			}
 		}
-		L.DomUtil.addClass(this._map._container, 'leaflet-grab');
+		L.DomUtil.addClass(this._map._container, 'leaflet-grab leaflet-touch-drag');
 		this._draggable.enable();
 		this._positions = [];
 		this._times = [];
@@ -9836,6 +9841,7 @@ L.Map.Drag = L.Handler.extend({
 
 	removeHooks: function () {
 		L.DomUtil.removeClass(this._map._container, 'leaflet-grab');
+		L.DomUtil.removeClass(this._map._container, 'leaflet-touch-drag');
 		this._draggable.disable();
 	},
 
@@ -10381,10 +10387,12 @@ L.Map.mergeOptions({
 
 L.Map.TouchZoom = L.Handler.extend({
 	addHooks: function () {
+		L.DomUtil.addClass(this._map._container, 'leaflet-touch-zoom');
 		L.DomEvent.on(this._map._container, 'touchstart', this._onTouchStart, this);
 	},
 
 	removeHooks: function () {
+		L.DomUtil.removeClass(this._map._container, 'leaflet-touch-zoom');
 		L.DomEvent.off(this._map._container, 'touchstart', this._onTouchStart, this);
 	},
 
@@ -11639,11 +11647,11 @@ L.Control.Layers = L.Control.extend({
 		this._handlingClick = false;
 
 		for (var i in baseLayers) {
-			this._addLayer(baseLayers[i], i);
+			this._addLayer(baseLayers[i], baseLayers[i].options['name']);
 		}
 
 		for (i in overlays) {
-			this._addLayer(overlays[i], i, true);
+			this._addLayer(overlays[i], overlays[i].options['name'], true);
 		}
 	},
 

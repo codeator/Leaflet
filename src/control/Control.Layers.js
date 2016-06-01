@@ -66,11 +66,11 @@ L.Control.Layers = L.Control.extend({
 		this._handlingClick = false;
 
 		for (var i in baseLayers) {
-			this._addLayer(baseLayers[i], i);
+			this._addLayer(baseLayers[i], baseLayers[i].options['name']);
 		}
 
 		for (i in overlays) {
-			this._addLayer(overlays[i], i, true);
+			this._addLayer(overlays[i], overlays[i].options['name'], true);
 		}
 	},
 
