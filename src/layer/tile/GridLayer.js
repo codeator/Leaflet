@@ -124,7 +124,10 @@ L.GridLayer = L.Layer.extend({
 
 		// @option hatZoomLimit: Boolean = true
 		// If true, than layers will be disabled if they have no such zoom.
-		hasZoomLimit: true
+		hasZoomLimit: true,
+		// @option keepBuffer: Number = 2
+		// When panning the map, keep this many rows and columns of tiles before unloading them.
+		keepBuffer: 2
 	},
 
 	initialize: function (options) {
@@ -599,10 +602,16 @@ L.GridLayer = L.Layer.extend({
 		var pixelBounds = this._getTiledPixelBounds(center),
 		    tileRange = this._pxBoundsToTileRange(pixelBounds),
 		    tileCenter = tileRange.getCenter(),
-		    queue = [];
+		    queue = [],
+		    margin = this.options.keepBuffer,
+		    noPruneRange = new L.Bounds(tileRange.getBottomLeft().subtract([margin, -margin]),
+		                              tileRange.getTopRight().add([margin, -margin]));
 
 		for (var key in this._tiles) {
-			this._tiles[key].current = false;
+			var c = this._tiles[key].coords;
+			if (c.z !== this._tileZoom || !noPruneRange.contains(L.point(c.x, c.y))) {
+				this._tiles[key].current = false;
+			}
 		}
 
 		// _update just loads more tiles. If the tile zoom level differs too much
