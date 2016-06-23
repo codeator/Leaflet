@@ -225,6 +225,12 @@ var deps = {
 		desc: 'Scale control.'
 	},
 
+	ControlGraphicScale: {
+		src: ['control/Control.js',
+			'control/Control.GraphicScale.js'],
+		desc: 'Graphic scale control.'
+	},
+
 	ControlLayers: {
 		src: ['control/Control.js',
 		      'control/Control.Layers.js'],
