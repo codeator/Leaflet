@@ -56,7 +56,7 @@ L.Control.Layers = L.Control.extend({
 		hideSingleBase: false,
 
 
-		checkDisabledLayers: true
+		checkDisabledLayers: true,
 		// @option sortLayers: Boolean = false
 		// Whether to sort the layers. When `false`, layers will keep the order
 		// in which they were added to the control.
