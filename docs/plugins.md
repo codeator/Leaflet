@@ -107,7 +107,7 @@ Ready-to-go basemaps, with little or no configuration at all.
 		<td>
 			<a href="https://github.com/leaflet-extras/leaflet-providers">leaflet-providers</a>
 		</td><td>
-			Contains configurations for various free tile providers &mdash; OSM, OpenCycleMap, MapQuest, Stamen, Esri, etc.
+			Contains configurations for various free tile providers &mdash; OSM, OpenCycleMap, Stamen, Esri, etc.
 		</td><td>
 			<a href="https://github.com/leaflet-extras">leaflet-extras members</a>
 		</td>
@@ -1302,6 +1302,17 @@ These plugins provide new markers or news ways of converting abstract data into 
 			<a href="https://github.com/react-map">Sylvenas</a>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/brandonxiang/leaflet.marker.highlight">Leaflet.Marker.Highlight</a>
+		</td>
+		<td>
+			Adding highlight performance for L.marker.(<a href="https://brandonxiang.github.io/leaflet.marker.highlight/examples/">Demo</a>).
+		</td>
+		<td>
+			<a href="https://github.com/brandonxiang">Brandon Xiang</a>
+		</td>
+	</tr>
 </table>
 
 
@@ -2470,6 +2481,15 @@ Display two maps at once. One of them might be a different size and zoom level, 
 			<a href="https://github.com/chriswhong">Chris Whong</a>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/jieter/leaflet-clonelayer">leaflet-clonelayer</a>
+		</td><td>
+			Clone Leaflet layers to allow reuse across different maps in the same runtime.
+		</td><td>
+			<a href="https://github.com/jieter">Jieter</a>
+		</td>
+	</tr>
 </table>
 
 
@@ -3024,6 +3044,15 @@ Print or export your map.
 			Export images out of Leaflet maps without a server component, by using Canvas and CORS.
 		</td><td>
 			<a href="https://github.com/tmcw">Tom MacWright</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/rowanwins/leaflet-easyPrint">Leaflet-easyPrint</a>
+		</td><td>
+			A simple plugin which adds an icon to print your Leaflet map.
+		</td><td>
+			<a href="https://github.com/rowanwins">Rowan Winsemius</a>
 		</td>
 	</tr>
 </table>
