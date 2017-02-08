@@ -1,10 +1,10 @@
 /*
- Leaflet 1.0.2+66c0c87, a JS library for interactive maps. http://leafletjs.com
+ Leaflet 1.0.2+6fc3f63, a JS library for interactive maps. http://leafletjs.com
  (c) 2010-2016 Vladimir Agafonkin, (c) 2010-2011 CloudMade
 */
 (function (window, document, undefined) {
 var L = {
-	version: "1.0.2+66c0c87"
+	version: "1.0.2+6fc3f63"
 };
 
 function expose() {
@@ -9876,7 +9876,7 @@ L.SVG = L.Renderer.extend({
 		this._container = L.SVG.create('svg');
 
 		// makes it possible to click through svg root; we'll reset it back in individual paths
-		this._container.setAttribute('pointer-events', 'none');
+		// this._container.setAttribute('pointer-events', 'none');
 
 		this._rootGroup = L.SVG.create('g');
 		this._container.appendChild(this._rootGroup);
