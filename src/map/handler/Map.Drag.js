@@ -24,7 +24,7 @@ Map.mergeOptions({
 	// the map builds momentum while dragging and continues moving in
 	// the same direction for some time. Feels especially nice on touch
 	// devices. Enabled by default unless running on old Android devices.
-	inertia: !Browser.android23,
+	inertia: false,
 
 	// @option inertiaDeceleration: Number = 3000
 	// The rate with which the inertial movement slows down, in pixels/second².

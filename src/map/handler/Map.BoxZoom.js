@@ -17,7 +17,7 @@ Map.mergeOptions({
 	// @option boxZoom: Boolean = true
 	// Whether the map can be zoomed to a rectangular area specified by
 	// dragging the mouse while pressing the shift key.
-	boxZoom: true
+	boxZoom: false
 });
 
 export var BoxZoom = Handler.extend({

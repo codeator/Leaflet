@@ -14,7 +14,7 @@ Map.mergeOptions({
 	// zoomed out by double clicking while holding shift. If passed
 	// `'center'`, double-click zoom will zoom to the center of the
 	//  view regardless of where the mouse was.
-	doubleClickZoom: true
+	doubleClickZoom: 'center'
 });
 
 export var DoubleClickZoom = Handler.extend({

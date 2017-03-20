@@ -25,7 +25,7 @@ import {PosAnimation} from '../dom/PosAnimation';
  * 	center: [51.505, -0.09],
  * 	zoom: 13
  * });
- * ```
+ * ```[]
  *
  */
 
@@ -75,7 +75,7 @@ export var Map = Evented.extend({
 		// @option zoomAnimation: Boolean = true
 		// Whether the map zoom animation is enabled. By default it's enabled
 		// in all browsers that support CSS3 Transitions except Android.
-		zoomAnimation: true,
+		zoomAnimation: false,
 
 		// @option zoomAnimationThreshold: Number = 4
 		// Won't animate zoom if the zoom difference exceeds this value.
